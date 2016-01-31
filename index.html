@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="build/react.min.js"></script>
+    <script src="build/react-dom.min.js"></script>
+    <script src="js/babel-core-5.8.23.min.js"></script>
+    <!--<script src="http://cdnapi.kaltura.com/p/2027991/sp/202799100/embedIframeJs/uiconf_id/33065512/partner_id/2027991?autoembed=true&entry_id=0_p0zuxuvv&playerId=kaltura_player_1454072967&cache_st=1454072967&width=400&height=333&flashvars[streamerType]=auto"></script>-->
+</head>
+<body>
+
+<div id="container"></div>
+<script type="text/babel">
+
+	var script=null;
+	var flashvarsObj={
+		"streamerType": "auto"
+	}
+
+	var KalturaPlayer = React.createClass({
+
+		propTypes:{
+			targetId:React.PropTypes.string.isRequired,
+			wid:React.PropTypes.string.isRequired,
+			uiconf_id:React.PropTypes.number.isRequired,
+			flashvars:React.PropTypes.Object,
+			cache_st:React.PropTypes.number.isRequired,
+			entry_id:React.PropTypes.string.isRequired
+		},
+		getIntialState:function(){
+			return{
+				kPlayer:"off"
+			}
+		},
+        componentWillMount:function() {
+	        script = document.createElement("script");
+	        script.async = false;
+	        script.type="'text/javascript";
+	        script.src = "http://cdnapi.kaltura.com/p/"+this.props.wid+"/sp/"+this.props.wid+"00/embedIframeJs/uiconf_id/"+this.props.uiconf_id+"/partner_id/"+this.props.wid+"?autoembed=true&entry_id="+this.props.entry_id+"&playerId="+this.props.targetId+"&cache_st="+this.props.cache_st+"&width="+this.props.pl_width+"&height="+this.props.pl_height+"&flashvars[streamerType]="+this.props.flashvars.streamerType;
+	        
+	        document.body.appendChild(script);
+
+        },
+		render:function(){
+			
+			return(
+				<div id="kalturaWrapper">
+				  	{this.props.flashvars.streamerType}
+                     {script.src}
+				</div>
+			);
+		},
+		componentDidMount:function(){
+			
+			   
+
+			
+		},
+		shouldComponentUpdate:function(nextProps,nextState){
+
+			console.log(nextState);
+           
+            return true;
+        }
+	});
+
+	ReactDOM.render(
+		<KalturaPlayer targetId="kaltura_player_1454072900"
+					   wid="2027991" /*_2027991*/
+					   uiconf_id="33065512"
+					   flashvars={flashvarsObj}
+					   cache_st="1454072900"
+					   entry_id="0_p0zuxuvv"
+					   pl_width="400"
+					   pl_height="333">
+		</KalturaPlayer>,
+		document.getElementById('container')
+	);
+</script>
+
+</body>
+</html>
