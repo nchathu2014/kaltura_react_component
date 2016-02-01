@@ -14,18 +14,13 @@
 <script type="text/babel">
 
 	var href=null;
-	var flashvarsObj={
-		"streamerType": "auto"
-	}
-
+	
 	var KalturaPlayer = React.createClass({
 
 		propTypes:{
-			targetId:React.PropTypes.string.isRequired,
+			player_id:React.PropTypes.string.isRequired,
 			wid:React.PropTypes.string.isRequired,
 			uiconf_id:React.PropTypes.number.isRequired,
-			flashvars:React.PropTypes.Object,
-			cache_st:React.PropTypes.number.isRequired,
 			entry_id:React.PropTypes.string.isRequired
 		},
 		getIntialState:function(){
@@ -34,14 +29,14 @@
 			}
 		},
         componentWillMount:function() {
-	        
-	        href = "http://cdnapi.kaltura.com/p/"+this.props.wid+"/sp/"+this.props.wid+"00/embedIframeJs/uiconf_id/"+this.props.uiconf_id+"/partner_id/"+this.props.wid+"?autoembed=true&entry_id="+this.props.entry_id+"&playerId="+this.props.targetId+"&cache_st="+this.props.cache_st+"&width="+this.props.pl_width+"&height="+this.props.pl_height+"&flashvars[streamerType]="+this.props.flashvars.streamerType;
+
+        href="http://www.kaltura.com/p/"+this.props.wid+"/sp/"+this.props.wid+"00/embedIframeJs/uiconf_id/"+this.props.uiconf_id+"/partner_id/"+this.props.wid+"?iframeembed=true&playerId="+this.props.player_id+"&entry_id="+this.props.entry_id;        
         },
 		render:function(){
 			
 			return(
 				<div id="kalturaWrapper" ref="kp">
-			       {/*Player Loading here  */}  
+			       <iframe src={href} width="400" height="330" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>
 				</div>
 			);
 		},
@@ -49,25 +44,14 @@
 			this.setState({
 		        kPlayer:"on"
 		    });
-
-			$.ajax(href, {
-		      	success: function(data) {
-		      		/*success logic*/
-		      	},
-		      	error: function() {
-		      		this.refs.kp.innerHTML="Kaltura Loading Error";
-		      	}
-		   });	
 		}
 	});
 
 	ReactDOM.render(
-		<KalturaPlayer targetId="kaltura_player_1454072900"
-					   wid="2027991" /*_2027991*/
-					   uiconf_id="33065512"
-					   flashvars={flashvarsObj}
-					   cache_st="1454072900"
-					   entry_id="0_p0zuxuvv"
+		<KalturaPlayer player_id="32595032"
+					   wid="1990241" /*_2027991*/
+					   uiconf_id="32595032"
+					   entry_id="0_rgvury8x"
 					   pl_width="600"
 					   pl_height="400">
 		</KalturaPlayer>,
